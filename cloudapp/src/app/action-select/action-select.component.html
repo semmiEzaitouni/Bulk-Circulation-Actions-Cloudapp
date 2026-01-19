@@ -1,0 +1,29 @@
+<div class="action-select">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="actions.length > 0; else noActions">
+      <mat-form-field
+        appearance="fill"
+        class="action-select-field"
+        style="width: 100%"
+      >
+        <mat-label>Select an Action</mat-label>
+
+        <mat-select
+          [value]="selectedAction"
+          (selectionChange)="onActionSelected($event.value)"
+          [disabled]="!libraryCode || !deskCode"
+        >
+          <mat-option *ngFor="let a of actions" [value]="a">
+            {{ a | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-template #noActions>
+      <p>No actions available for your role.</p>
+    </ng-template>
+  </ng-container>
+</div>

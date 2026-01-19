@@ -1,0 +1,110 @@
+<div *ngIf="entities$ | async as entities">
+  <ng-container
+    *ngIf="entities.length > 0; then entitylist; else noentities"
+  ></ng-container>
+
+  <ng-template #noentities>
+    <app-available-libraries (librarySelected)="onLibrarySelected($event)">
+    </app-available-libraries>
+
+    <app-circ-desk-select
+      *ngIf="selectedLibrary"
+      [libraryCode]="selectedLibrary"
+      (deskSelected)="onDeskSelected($event)"
+    >
+    </app-circ-desk-select>
+
+    <app-action-select
+      *ngIf="selectedLibrary && selectedDesk"
+      [libraryCode]="selectedLibrary"
+      [deskCode]="selectedDesk"
+      (actionSelected)="onActionSelected($event)"
+    >
+    </app-action-select>
+
+    <app-file-upload
+      *ngIf="selectedLibrary && selectedDesk && selectedAction"
+      [libraryCode]="selectedLibrary"
+      [deskCode]="selectedDesk"
+      [action]="selectedAction"
+      (cleared)="onUploadCleared()"
+      (fileParsed)="onFileParsed($event)"
+    >
+    </app-file-upload>
+
+    <!-- <app-execute> </app-execute> -->
+
+    <app-execute
+      *ngIf="executePayload"
+      [payload]="executePayload"
+      [disabled]="executing"
+      (execute)="onExecuteClicked()"
+    >
+    </app-execute>
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngIf="copyMessage"
+      (click)="copyToClipboard()"
+    >
+      Copy message
+    </button>
+  </ng-template>
+
+  <ng-template #entitylist>
+    <!-- <div class="eca-actions">
+      <button
+        mat-flat-button
+        color="secondary"
+        (click)="clear()"
+        [disabled]="!selectedEntity"
+      >
+        Clear
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="update(apiResultArea.value)"
+        [disabled]="!apiResult || loading"
+      >
+        Update
+      </button>
+    </div>
+
+    <h1>Entities</h1>
+
+    <mat-card [style.display]="apiResult ? '' : 'none'">
+      <mat-card-header>
+        <mat-card-title>API Result</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <textarea #apiResultArea [value]="apiResult | json"></textarea>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card [style.display]="selectedEntity ? '' : 'none'">
+      <mat-card-header>
+        <mat-card-title>Selected Entity</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre>{{ selectedEntity | json }}</pre>
+      </mat-card-content>
+    </mat-card>
+
+    <label id="entities-radio-group-label">Select an entity:</label>
+    <mat-radio-group
+      aria-labelledby="entities-radio-group-label"
+      class="entities-radio-group"
+      [(ngModel)]="selectedEntity"
+      (change)="entitySelected($event)"
+    >
+      <mat-radio-button *ngFor="let entity of entities" [value]="entity">
+        {{ entity.description }}
+      </mat-radio-button>
+    </mat-radio-group> -->
+  </ng-template>
+</div>
+
+<div class="loading-shade" *ngIf="loading || executing">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>

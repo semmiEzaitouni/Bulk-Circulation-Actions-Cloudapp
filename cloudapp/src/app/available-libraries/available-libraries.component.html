@@ -1,0 +1,35 @@
+<div class="available-libraries">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="libraries.length > 0; else noLibs">
+      <mat-form-field
+        appearance="fill"
+        class="library-select"
+        style="width: 100%"
+      >
+        <mat-label>Select a Library</mat-label>
+
+        <!-- IMPORTANT: use mat-select and selectionChange -->
+        <mat-select
+          [value]="selectedLibrary"
+          (selectionChange)="onLibrarySelect($event)"
+        >
+          <mat-option *ngFor="let lib of libraries" [value]="lib.code">
+            {{ lib.name }} ({{ lib.code }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="selectedLibrary" class="selected-info">
+        <!-- <p>
+          You selected: <strong>{{ selectedLibrary }}</strong>
+        </p> -->
+      </div>
+    </ng-container>
+
+    <ng-template #noLibs>
+      <p>No libraries available for your role.</p>
+    </ng-template>
+  </ng-container>
+</div>
