@@ -2,5 +2,10 @@
    "id": "bulk-circulation-actions",
    "title": "bulk circulation actions",
    "subtitle": "bulk actions",
-   "author": "semmi - libis"
+   "author": "semmi - libis",
+   "contentSecurity": {
+      "sandbox": {
+         "downloads": true
+      }
+   }
 }

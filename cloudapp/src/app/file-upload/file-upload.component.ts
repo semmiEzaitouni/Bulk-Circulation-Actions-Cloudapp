@@ -392,5 +392,16 @@ export class FileUploadComponent {
     return i >= 0 ? name.substring(i + 1).toLowerCase() : '';
   }
 
+  getExampleFileUrl(): string {
+    if (!this.action) return '';
+
+    if (this.action === 'Return') {
+      return 'assets/ReturnExample.xlsx';
+    } else {
+      // Loan or Loan renewal
+      return 'assets/LoanAndLoanRenewalExample.xlsx';
+    }
+  }
+
   constructor(private alert: AlertService) {}
 }

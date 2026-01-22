@@ -2,6 +2,15 @@
   <h1>Upload Excel file of barcodes</h1>
   <h2>Please choose an .xlsx with a “Barcode” column (header optional)</h2>
 
+  <a
+    *ngIf="action"
+    class="example-download-link"
+    [href]="getExampleFileUrl()"
+    download
+  >
+    Download example Excel
+  </a>
+
   <ngx-dropzone accept=".xlsx" [multiple]="false" (change)="onSelect($event)">
     <ngx-dropzone-label>Choose .xlsx file</ngx-dropzone-label>
 
