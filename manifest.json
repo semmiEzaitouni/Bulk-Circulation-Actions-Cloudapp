@@ -1,11 +1,12 @@
 {
-   "id": "bulk-circulation-actions",
-   "title": "bulk circulation actions",
-   "subtitle": "bulk actions",
-   "author": "semmi - libis",
-   "contentSecurity": {
-      "sandbox": {
-         "downloads": true
-      }
-   }
+  "id": "bulk-circulation-actions",
+  "title": "bulk circulation actions Beta",
+  "subtitle": "bulk actions",
+  "description": "this cloud app allows the user to perform a lot a actions at once, we can upload an excel file for a return, Loan and Loan renewal actions and it will perform the actions on all items in the excel file",
+  "author": "semmi - libis",
+  "contentSecurity": {
+    "sandbox": {
+      "downloads": true
+    }
+  }
 }
