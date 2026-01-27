@@ -122,14 +122,14 @@ export class MainComponent implements OnInit, OnDestroy {
       action,
       'for',
       barcodes.length,
-      'items'
+      'items',
     );
 
     // Execute the appropriate bulk action
     switch (action) {
       case 'Loan':
         this.bulkLoan(
-          barcodes as Array<{ itemBarcode: string; primaryId?: string }>
+          barcodes as Array<{ itemBarcode: string; primaryId?: string }>,
         );
         break;
       case 'Return':
@@ -137,7 +137,7 @@ export class MainComponent implements OnInit, OnDestroy {
         break;
       case 'Loan renewal':
         this.bulkRenew(
-          barcodes as Array<{ itemBarcode: string; primaryId?: string }>
+          barcodes as Array<{ itemBarcode: string; primaryId?: string }>,
         );
         break;
       default:
@@ -233,7 +233,7 @@ export class MainComponent implements OnInit, OnDestroy {
                   });
                   console.error(
                     ` Loan failed: ${item.itemBarcode}`,
-                    error.message
+                    error.message,
                   );
                   processNext(index + 1);
                 },
@@ -248,7 +248,7 @@ export class MainComponent implements OnInit, OnDestroy {
             });
             console.error(
               ` Item lookup failed: ${item.itemBarcode}`,
-              error.message
+              error.message,
             );
             processNext(index + 1);
           },
@@ -261,7 +261,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private bulkReturn(
     barcodes: string[],
     libraryCode: string,
-    deskCode: string
+    deskCode: string,
   ) {
     let successful = 0;
     let failed = 0;
@@ -276,7 +276,7 @@ export class MainComponent implements OnInit, OnDestroy {
       const barcode = barcodes[index];
 
       console.log(
-        `Processing return ${index + 1}/${barcodes.length}: ${barcode}`
+        `Processing return ${index + 1}/${barcodes.length}: ${barcode}`,
       );
 
       // Step 1: Find item by barcode
@@ -378,7 +378,7 @@ export class MainComponent implements OnInit, OnDestroy {
       }
 
       console.log(
-        `Processing return ${index + 1}/${items.length}: ${item.itemBarcode}`
+        `Processing return ${index + 1}/${items.length}: ${item.itemBarcode}`,
       );
 
       // STEP 1: Find item by barcode
@@ -453,7 +453,7 @@ export class MainComponent implements OnInit, OnDestroy {
                   });
                   console.error(
                     `Return scan failed: ${item.itemBarcode}`,
-                    error.message
+                    error.message,
                   );
                   processReturns(index + 1);
                 },
@@ -468,7 +468,7 @@ export class MainComponent implements OnInit, OnDestroy {
             });
             console.error(
               `Find item failed: ${item.itemBarcode}`,
-              error.message
+              error.message,
             );
             processReturns(index + 1);
           },
@@ -488,7 +488,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
       const item = returnedItems[index];
       console.log(
-        `Creating loan ${index + 1}/${returnedItems.length}: ${item.barcode}`
+        `Creating loan ${index + 1}/${returnedItems.length}: ${item.barcode}`,
       );
 
       const requestBody = {
@@ -540,7 +540,7 @@ export class MainComponent implements OnInit, OnDestroy {
     action: 'Loan' | 'Return' | 'Loan renewal',
     successful: number,
     failed: number,
-    errors: Array<{ barcode: string; userId?: string; reason: string }>
+    errors: Array<{ barcode: string; userId?: string; reason: string }>,
   ) {
     const total = successful + failed;
 
@@ -551,7 +551,7 @@ export class MainComponent implements OnInit, OnDestroy {
             (e) =>
               `• Barcode: ${e.barcode}` +
               (e.userId ? ` | User: ${e.userId}` : '') +
-              ` | Reason: ${e.reason}`
+              ` | Reason: ${e.reason}`,
           )
           .join('\n')
       : 'None';
@@ -574,15 +574,15 @@ ${failedDetails}
     // Show toast
     if (failed === 0) {
       this.alert.success(
-        `${action} completed successfully for all ${total} items`
+        `${action} completed successfully for all ${total} items`,
       );
     } else if (successful === 0) {
       this.alert.error(
-        `${action} failed for all ${total} items. Click "Copy" to see full details.`
+        `${action} failed for all ${total} items. Click “Copy” message to paste failures in a document of choice. Close this message to access the “Copy message”-button `,
       );
     } else {
       this.alert.warn(
-        `${action} partially completed: ${successful}/${total} successful, ${failed} failed. Click "Copy" to see full details.`
+        `${action} partially completed: ${successful}/${total} successful, ${failed} failed.  Click “Copy” message to paste failures in a document of choice. Close this message to access the “Copy message”-button `,
       );
     }
   }
@@ -591,7 +591,7 @@ ${failedDetails}
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     this.entities$ = this.eventsService.entities$.pipe(tap(() => this.clear()));
   }

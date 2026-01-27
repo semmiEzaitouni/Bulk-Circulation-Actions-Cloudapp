@@ -1,6 +1,10 @@
 <div class="file-upload">
   <h1>Upload Excel file of barcodes</h1>
-  <h2>Please choose an .xlsx with a “Barcode” column (header optional)</h2>
+  <h2>
+    Please choose an .xlsx file that contains a Barcode column. If you are
+    processing Returns or Loan Renewals, a Primary Identifier column is also
+    required.
+  </h2>
 
   <a
     *ngIf="action"
